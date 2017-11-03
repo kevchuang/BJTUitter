@@ -1,0 +1,115 @@
+/* CSS page for account page*/
+
+.top-div {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 4%;
+  left: 0;
+}
+
+.top-div #logo {
+  position: absolute;
+  left: 0;
+}
+
+.main-div {
+  font-family: "Calibri", Arial, sans-serif;
+  position: fixed;
+  top: 20%;
+  width: 40%;
+  height: 60%;
+  left: 30%;
+  border: 2px solid black;
+  box-shadow: 10px 10px 6px #444444;
+  background-color: #cceae7;
+}
+
+.main-left-div {
+  width: 49%;
+  height: 80%;
+  float: left;
+  text-align: center;
+}
+
+.main-right-div {
+  width: 49%;
+  height: 80%;
+  float: left;
+  overflow: auto;
+  padding: 5px;
+}
+
+.main-mid-div {
+  height: 80%;
+  width: 1px;
+  float: left;
+  background-color: black;
+}
+
+.main-div h1 {
+  text-align: center;
+  color: black;
+  margin-bottom: 5%;
+}
+
+.inputs {
+  text-align: center;
+}
+
+.main-left-div input {
+  font-family: "Calibri", Arial, sans-serif;
+  text-align: center;
+  border: 2px solid #99d5cf;
+  height: 40px;
+  width: 50%;
+  transition: 0.5s;
+  margin-bottom: 2%;
+}
+
+.main-left-div input:hover {
+  border:2px solid #32ab9f;
+}
+
+.main-left-div input:focus {
+  width: 80%;
+  border: 2px solid #32ab9f;
+  background-color: #cceae7;
+  border-radius: 40px;
+}
+
+#accountButton {
+  background-color: white;
+  border: 2px solid #99d5cf;
+  width: 33%;
+  height: 30%;
+  padding: 10px 0 10px 0;
+  border-radius: 4px;
+  transition: 0.5s;
+}
+
+#accountButton:hover {
+  background-color: #cceae7;
+  border: 2px solid #32ab9f;
+  border-radius: 40px;
+  width: 60%;
+}
+
+#accountButton:active {
+  transform: translateY(4px);
+}
+
+.footer {
+  position: absolute;
+  display: block;
+  text-align: center;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  bottom: 0;
+  padding-bottom: 10px;
+  background-color: #66c0b7;
+  font-family: "Calibri", Arial, sans-serif;
+  font-size: 120%;
+  color: #cceae7;
+}
