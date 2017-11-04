@@ -20,7 +20,7 @@ def login():
     error = None
 
     if request.method == 'POST':
-        SQL = "SELECT * from \"USER\" WHERE login_username = %s AND password = %s;"
+        SQL = "SELECT * from \"USER\" WHERE login_username = %s AND password = crypt(%s, password);"
         cur.execute(SQL, (request.form['username'].lower().strip(), request.form['password']))
         ret = cur.fetchone()
         if ret == None:
@@ -44,7 +44,7 @@ def registration():
             gender = 0
         else:
             error = 'Please specify a gender'
-        SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, crypt(%s, gen_salt('bf', 8)))"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
     return render_template('registration.html')
@@ -61,14 +61,19 @@ def account():
     entries = None
     if request.method == 'GET':
         SQL = "SELECT * FROM \"USER\" WHERE user_id = %s;"
-        cur.execute(SQL, (str(session['user_id']), ))
+        cur.execute(SQL, (str(session['user_id'])))
         entries = cur.fetchone()
-
     if request.method == 'POST':
-        SQL = "UPDATE \"USER\" SET lastname = %s, firstname = %s, nickname = %s, mail = %s, password = %s WHERE user_id = %s;"
-        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['nickname'], request.form['mail'].lower().strip(), request.form['password'], str(session['user_id'])))
+        SQL = "UPDATE \"USER\" SET lastname = %s, firstname = %s, nickname = %s, mail = %s WHERE user_id = %s;"
+        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['nickname'], request.form['mail'].lower().strip(), str(session['user_id'])))
+        if request.form['password'] != "":
+            cur.execute("UPDATE \"USER\" SET password = crypt(%s, gen_salt('bf', 8)) WHERE user_id = %s;", (request.form['password'], str(session['user_id'])))
         conn.commit()
     return render_template('account.html', entries=entries)
+
+# @app.route('/feed', methods=['GET', 'POST'])
+# def feed():
+#     return render_template('feed.html')
 
 if __name__ == '__main__':
     app.run()
