@@ -21,7 +21,7 @@ def login():
 
     if request.method == 'POST':
         SQL = "SELECT * from \"USER\" WHERE login_username = %s AND password = %s;"
-        cur.execute(SQL, (request.form['username'], request.form['password']))
+        cur.execute(SQL, (request.form['username'].lower().strip(), request.form['password']))
         ret = cur.fetchone()
         if ret == None:
             error = 'Invalid username and/or password'
@@ -43,10 +43,9 @@ def registration():
         elif request.form['gender'] == 'Female':
             gender = 0
         else:
-            error = 'PLease specify a gender'
-            return render_template('registration.html')
+            error = 'Please specify a gender'
         SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'], gender, request.form['mail'], request.form['login'], request.form['password']))
+        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
     return render_template('registration.html')
 
@@ -55,8 +54,6 @@ def logout():
     session.pop('logged_in', None)
     flash('Successfully logged out')
     session['user_id'] = -1
-    cur.close()
-    conn.close()
     return redirect(url_for('login'))
 
 @app.route('/account', methods=['GET', 'POST'])
@@ -69,9 +66,11 @@ def account():
 
     if request.method == 'POST':
         SQL = "UPDATE \"USER\" SET lastname = %s, firstname = %s, nickname = %s, mail = %s, password = %s WHERE user_id = %s;"
-        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['nickname'], request.form['mail'], request.form['password'], str(session['user_id'])))
+        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['nickname'], request.form['mail'].lower().strip(), request.form['password'], str(session['user_id'])))
         conn.commit()
     return render_template('account.html', entries=entries)
 
 if __name__ == '__main__':
     app.run()
+    cur.close()
+    conn.close()
