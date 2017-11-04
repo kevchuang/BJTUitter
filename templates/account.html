@@ -1,3 +1,8 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='account.component.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
+</head>
+
 <body>
 
   <div class="top-div">
@@ -12,13 +17,13 @@
         Want to change something?<br/>
         Change it in the text fields down there, and press the button!<br/>
       </p>
-      <form title="accountModifyForm">
-        <input type="text" title="username" id="username" value="username"/><br/>
-        <input type="text" title="lastname" id="lastname" value="lastname"/><br/>
-        <input type="text" title="firstname" id="firstname" value="firstname"/><br/>
-        <input type="text" title="mail" id="mail" value="mail"/><br/>
-        <input type="password" title="password" id="password" value="password"/><br/>
-        <input type="button" id="accountButton" value="Confirm">
+      <form title="accountModifyForm" action="{{ url_for('account') }}" method="post">
+        <input type="text" title="nickname" name="nickname" value="{{ entries[3]}}"/><br/>
+        <input type="text" title="lastname" name="lastname" value="{{ entries[0] }}"/><br/>
+        <input type="text" title="firstname" name="firstname" value="{{ entries[1] }}"/><br/>
+        <input type="text" title="mail" name="mail" value="{{ entries[5] }}"/><br/>
+        <input type="password" title="password" name="password" value="{{ entries[7] }}"/><br/>
+        <input type="submit" id="accountButton" value="Confirm">
       </form>
     </div>
     <div class="main-mid-div"></div>
