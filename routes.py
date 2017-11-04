@@ -14,6 +14,7 @@ app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
 conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
+user_id = -1
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -22,10 +23,12 @@ def login():
     if request.method == 'POST':
         SQL = "SELECT * from \"USER\" WHERE login_username = %s AND password = %s;"
         cur.execute(SQL, (request.form['username'], request.form['password']))
-        if cur.fetchone() == None:
+        ret = cur.fetchone()
+        if ret == None:
             error = 'Invalid username and/or password'
         else:
             session['logged_in'] = True
+            user_id = ret[8]
             flash('Successfully login')
             return redirect('feed')
 
@@ -52,13 +55,17 @@ def registration():
 def logout():
     session.pop('logged_in', None)
     flash('Successfully logged out')
+    id = -1
     cur.close()
     conn.close()
     return redirect(url_for('login'))
 
-@app.route('account', methods=['GET', 'POST'])
+@app.route('/account', methods=['GET', 'POST'])
 def account():
-
-    return render_template('account.html')
+    if request.method == 'GET':
+        SQL = "SELECT * FROM \"USER\" WHERE user_id = %s;"
+        cur.execute(SQL, user_id)
+        entries = cur.fetchone()
+    return render_template('account.html', entries=entries)
 if __name__ == '__main__':
     app.run()
