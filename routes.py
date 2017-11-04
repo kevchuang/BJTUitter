@@ -19,9 +19,6 @@ cur = conn.cursor()
 def login():
     error = None
 
-    #cur.execute("INSERT INTO \"USER\" (lastname, firstname, nickname, gender, age, mail, login_username, password, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-    #            ("Louis", "Chaumier", "Chaumichau", 1, 22, "louischaumier@yahoo.fr", "lolilol", "ezpz", 0))
-    #conn.commit()
     if request.method == 'POST':
         SQL = "SELECT * from \"USER\" WHERE login_username = %s AND password = %s;"
         cur.execute(SQL, (request.form['username'], request.form['password']))
@@ -34,10 +31,22 @@ def login():
 
     return render_template('login.html', error=error)
 
-@app.route('/registration')
+@app.route('/registration', methods=['GET', 'POST'])
 def registration():
     error = None
-    
+    gender = -1
+    if request.method == 'POST':
+        if request.form['gender'] == 'Male':
+            gender = 1
+        elif request.form['gender'] == 'Female':
+            gender = 0
+        else:
+            error = 'PLease specify a gender'
+            return render_template('registration.html')
+        SQL = "INSERT INTO \"USER\" (lastname, firstname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s)"
+        cur.execute(SQL, (request.form['lastname'], request.form['firstname'], gender, request.form['mail'], request.form['login'], request.form['password']))
+        conn.commit()
+    return render_template('registration.html')
 
 @app.route('/logout')
 def logout():
@@ -47,5 +56,9 @@ def logout():
     conn.close()
     return redirect(url_for('login'))
 
+@app.route('account', methods=['GET', 'POST'])
+def account():
+
+    return render_template('account.html')
 if __name__ == '__main__':
     app.run()
