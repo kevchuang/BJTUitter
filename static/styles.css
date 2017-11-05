@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
-  /*background-image: url("./assets/wallpaper2.jpg");
-  background-size: cover;*/
-  background-color: #32ab9f;
+  background: url("{{ url_for('static', filename='logo_little.png') }}");
+  background-repeat: repeat;
   margin: 0;
 }

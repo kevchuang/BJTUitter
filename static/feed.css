@@ -116,6 +116,69 @@ a:hover {
   color: #32ab9f;
 }
 
+.left-div {
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  width: 20%;
+  height: 20%;
+}
+
+.inputs {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.inputs input {
+  font-family: "Calibri", Arial, sans-serif;
+  text-align: center;
+  border: 2px solid #99d5cf;
+  height: 40px;
+  width: 50%;
+  transition: 0.5s;
+  margin-bottom: 5%;
+}
+
+.inputs input:hover {
+  border:2px solid #32ab9f;
+}
+
+.inputs input:focus {
+  width: 80%;
+  border: 2px solid #32ab9f;
+  background-color: #cceae7;
+  border-radius: 40px;
+}
+
+#postButton {
+  position: absolute;
+  left: 33%;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 2px solid #99d5cf;
+  width: 33%;
+  border-radius: 4px;
+  transition: 0.5s;
+  margin-top: 0;
+}
+
+#postButton:hover {
+  position: absolute;
+  background-color: #cceae7;
+  border: 2px solid #32ab9f;
+  border-radius: 40px;
+  left: 20%;
+  width: 60%;
+  margin-top: 0;
+}
+
+#postButton:active {
+  transform: translateY(4px);
+}
+
 .footer {
   position: absolute;
   display: block;
