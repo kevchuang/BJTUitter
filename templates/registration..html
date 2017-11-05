@@ -6,16 +6,16 @@
 <body>
 
   <div class="top-div">
-    <a href="/login"><img src="../assets/logo_little.png" id="logo"></a>
+    <a href="/login"><img src="{{ url_for('static', filename='logo_little.png') }}" id="logo"></a>
   </div>
 
   <div class="main-div">
     <h1>
-      <img src="../assets/hello2.gif">
+      <img src="{{ url_for('static', filename='hello.gif') }}">
       Sign in page!
     </h1>
     <div class="inputs">
-      <form title="registrationForm">
+      <form title="registrationForm" action="{{ url_for('registration') }}" method="post">
         <input type="text" id="lastname" placeholder="Lastname" class="text-in-form"/><br/>
         <input type="text" id="firstname" placeholder="Firstname" class="text-in-form"/><br/>
         <input type="text" id="mail" placeholder="Mail" class="text-in-form"/><br/>

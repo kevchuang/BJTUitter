@@ -10,15 +10,16 @@
   </div>
   <div class="main-div">
     <div class="top-div">
-      <a href="/main"><img src="../assets/logo_little.png" id="logo"></a>
+      <a href="/main"><img src="{{ url_for('static', filename='logo_little.png') }}" id="logo"></a>
     </div>
     <div class="main-box">
       <h1>
         Welcome User!<br/>
-        <img src="../assets/hello.gif">
+        <img src="{{ url_for('static', filename='hello.gif') }}">
       </h1>
       <div class="inputs">
-        <form title="loginForm" action="login.component.html">
+        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+        <form title="loginForm" action="login.html">
           <input type="text" id="login" placeholder="Login or Mail" class="text-in-form"/><br/><br/>
           <input type="password" id="password" placeholder="Password" class="text-in-form"/><br/>
           <input type="button" id="loginButton" value="Log In!">
@@ -33,12 +34,12 @@
 
   <div class="down-arrow">
     <a href="/login#window-div">
-      <div><img src="../assets/down-chevron.png"></div>
+      <div><img src="../static/down-chevron.png"></div>
     </a>
   </div>
 
   <div class="window-div" id="window-div">
-    <img src="../assets/jiaotongdaxue1.jpg" id="jiaotongdaxue1"/>
+    <img src="{{ url_for('static', filename='jiaotongdaxue1.jpg') }}" id="jiaotongdaxue1"/>
     <div class="midboxes" id="midbox1">
       <div class="midtext">
         <a href="/feed">

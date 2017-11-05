@@ -8,7 +8,7 @@
   <div class="main-div">
 
     <div class="top-div">
-      <a href="/login"><img src="../assets/logo_little.png" id="logo"></a>
+      <a href="/login"><img src="../static/logo_little.png" id="logo"></a>
     </div>
 
     <div class="mid-div">
@@ -20,14 +20,14 @@
           Want to change something?<br/>
           Change it in the text fields down there, and press the button!<br/>
         </p>
-        <form title="accountModifyForm">
-          <input type="text" title="username" id="username" value="username"/><br/>
-          <input type="text" title="lastname" id="lastname" value="lastname"/><br/>
-          <input type="text" title="firstname" id="firstname" value="firstname"/><br/>
-          <input type="text" title="mail" id="mail" value="mail"/><br/>
-          <input type="password" title="password" id="password" value="password"/><br/>
-          <input type="button" id="accountButton" value="Confirm">
-        </form>
+          <form title="accountModifyForm" action="{{ url_for('account') }}" method="post">
+              <input type="text" title="nickname" name="nickname" value="{{ entries[2] }}"/><br/>
+              <input type="text" title="lastname" name="lastname" value="{{ entries[0] }}"/><br/>
+              <input type="text" title="firstname" name="firstname" value="{{ entries[1] }}"/><br/>
+              <input type="text" title="mail" name="mail" value="{{ entries[5] }}"/><br/>
+              <input type="password" title="password" name="password"/><br/>
+              <input type="submit" id="accountButton" value="Confirm">
+          </form>
 
         <p>
           If you want to log out, click that button!

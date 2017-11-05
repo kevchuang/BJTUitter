@@ -1,7 +1,7 @@
 /* CSS page for account page*/
 
 .top-div {
-  position: fixed;
+  position: static;
   top: 0;
   width: 100%;
   height: 4%;
@@ -14,15 +14,23 @@
 }
 
 .main-div {
-  font-family: "Calibri", Arial, sans-serif;
-  position: fixed;
-  top: 20%;
-  width: 40%;
-  height: 60%;
-  left: 30%;
-  border: 2px solid black;
-  box-shadow: 10px 10px 6px #444444;
-  background-color: #cceae7;
+  position: absolute;
+  width: 80%;
+  height: 92%;
+  margin: 0;
+  left: 10%;
+  background-color: #32ab9f;
+  box-shadow: 0 0 40px black;
+}
+
+.mid-div {
+  position: absolute;
+  width: 50%;
+  top: 10%;
+  height: 88%;
+  left: 25%;
+  border: 5px groove white;
+  overflow: auto;
 }
 
 .main-left-div {
@@ -78,7 +86,7 @@
   border-radius: 40px;
 }
 
-#accountButton {
+#accountButton, #logoutButton {
   background-color: white;
   border: 2px solid #99d5cf;
   width: 33%;
@@ -88,14 +96,14 @@
   transition: 0.5s;
 }
 
-#accountButton:hover {
+#accountButton:hover, #logoutButton:hover {
   background-color: #cceae7;
   border: 2px solid #32ab9f;
   border-radius: 40px;
   width: 60%;
 }
 
-#accountButton:active {
+#accountButton:active, #logoutButton:active {
   transform: translateY(4px);
 }
 
