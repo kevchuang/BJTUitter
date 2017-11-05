@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import time
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
 app = Flask(__name__)
@@ -29,9 +30,38 @@ def login():
             session['logged_in'] = True
             session['user_id'] = ret[8]
             flash('Successfully login')
-            return redirect('account')
+            return redirect('feed')
 
     return render_template('login.html', error=error)
+
+@app.route('/feed', methods=['GET'])
+def feed():
+    error = None
+    entries = None
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
+    cur.execute(SQL, (session['user_id'],))
+    entries = cur.fetchall()
+
+    return render_template('feed.html', entries=entries)
+
+@app.route('/add_post', methods=['GET', 'POST'])
+def add_post():
+    error = None
+    if request.method == 'POST':
+        SQL = "INSERT INTO \"POSTS\" (content, date) VALUES(%s, %S);"
+        cur.execute(SQL, (request.form['content'], time.strftime("%A %d %B %Y %H:%M:%S")))
+        conn.commit()
+    return render_template('add_post')
+
+@app.route('/like', methods=['GET', 'POST'])
+def likes():
+    error = None
+    if request.method == 'POST':
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
+        cur.execute(SQL, (session['user_id'], request.form['post_id']))
+        conn.commit()
+        SQL = "UPDATE \"POSTS\" "
+    return redirect('feed')
 
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
@@ -70,9 +100,6 @@ def account():
         conn.commit()
     return render_template('account.html', entries=entries)
 
-@app.route('/feed', methods=['GET', 'POST'])
-def feed():
-    return render_template('feed.html')
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
