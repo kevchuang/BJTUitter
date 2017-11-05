@@ -48,10 +48,10 @@ def feed():
 def add_post():
     error = None
     if request.method == 'POST':
-        SQL = "INSERT INTO \"POSTS\" (content, date) VALUES(%s, %S);"
-        cur.execute(SQL, (request.form['content'], time.strftime("%A %d %B %Y %H:%M:%S")))
+        SQL = "INSERT INTO \"POSTS\" (content, date, user_id) VALUES(%s, %s, %s);"
+        cur.execute(SQL, (request.form['post-content'], time.strftime("%A %d %B %Y %H:%M:%S"), str(session['user_id'])))
         conn.commit()
-    return render_template('add_post')
+    return redirect('feed')
 
 @app.route('/like', methods=['GET', 'POST'])
 def likes():
