@@ -1,0 +1,44 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='registration.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+  <div class="top-div">
+    <a href="/login"><img src="../assets/logo_little.png" id="logo"></a>
+  </div>
+
+  <div class="main-div">
+    <h1>
+      <img src="../assets/hello2.gif">
+      Sign in page!
+    </h1>
+    <div class="inputs">
+      <form title="registrationForm">
+        <input type="text" id="lastname" placeholder="Lastname" class="text-in-form"/><br/>
+        <input type="text" id="firstname" placeholder="Firstname" class="text-in-form"/><br/>
+        <input type="text" id="mail" placeholder="Mail" class="text-in-form"/><br/>
+        <select name="gender">
+          <option value="-" selected >Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="error">Oh...</option>
+        </select><br/>
+        <input type="password" id="password" placeholder="Password" class="text-in-form"/><br/>
+        <input type="password" id="password-confirm" placeholder="Confirm Password" class="text-in-form"/><br/>
+        <input type="button" id="registrationButton" value="Register!">
+      </form>
+    </div>
+
+    <div class="little-links">
+      <a href="/login">Have an account already? Log In!</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>BJTU Twitterlike application ~ Software Project Management 1</span><br/>
+    <span>Louis CHAUMIER, Kévin CHUANG, Sylvain BIRUKOFF</span>
+  </div>
+
+</body>

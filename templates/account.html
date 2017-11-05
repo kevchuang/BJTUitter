@@ -1,42 +1,52 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='account.component.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='account.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
 
-  <div class="top-div">
-    <a href="/login"><img src="../static/logo_little.png" id="logo"></a>
-  </div>
-
   <div class="main-div">
-    <h1>Account page</h1>
 
-    <div class="main-left-div">
-      <p>
-        Want to change something?<br/>
-        Change it in the text fields down there, and press the button!<br/>
-      </p>
-      <form title="accountModifyForm" action="{{ url_for('account') }}" method="post">
-        <input type="text" title="nickname" name="nickname" value="{{ entries[2] }}"/><br/>
-        <input type="text" title="lastname" name="lastname" value="{{ entries[0] }}"/><br/>
-        <input type="text" title="firstname" name="firstname" value="{{ entries[1] }}"/><br/>
-        <input type="text" title="mail" name="mail" value="{{ entries[5] }}"/><br/>
-        <input type="password" title="password" name="password"/><br/>
-        <input type="submit" id="accountButton" value="Confirm">
-      </form>
+    <div class="top-div">
+      <a href="/login"><img src="../assets/logo_little.png" id="logo"></a>
     </div>
-    <div class="main-mid-div"></div>
-    <div class="main-right-div">
-      <p>
-        Data about the user<br/><br/>
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor elementum odio, at vehicula ante condimentum et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut maximus odio in ante iaculis accumsan. Donec ornare lectus vel erat fringilla, a pulvinar elit pellentesque. Praesent ipsum eros, semper eu tempor vitae, aliquet eu tellus. Vestibulum ut commodo magna. Donec eget lacus feugiat, rutrum lacus eu, vestibulum elit. Proin sed tellus neque. Phasellus rhoncus eu magna eu euismod. Vivamus eu orci ut velit laoreet aliquet quis a purus. Vivamus condimentum laoreet libero nec cursus. Integer porta laoreet quam quis porta. Donec magna quam, maximus et consequat eget, sagittis sed lorem.
-        Donec eu varius diam, a cursus quam. Donec et lorem quis lectus tempus consequat. Nam eu dictum lorem. Cras porta felis est, quis consequat sapien tincidunt eget. Sed vel turpis turpis. Morbi a dolor dui. Maecenas blandit ultrices turpis, et hendrerit ipsum tincidunt id.
-        Curabitur in facilisis felis, interdum malesuada diam. Suspendisse a nulla eu ex tempor tristique. Aenean ac ex tincidunt, sodales velit sit amet, vestibulum turpis. Vivamus nec viverra nisi. Aenean dui ipsum, dapibus a orci vel, fringilla ultrices erat. Nunc molestie, tellus a fermentum ultricies, ante nisi consectetur mi, eu tempus eros ex eget magna. In maximus nisl massa, ut tincidunt ipsum pulvinar eu. Sed rutrum, nibh id dapibus tempus, urna ligula accumsan quam, at elementum urna odio a libero. Aenean ligula velit, pulvinar rutrum bibendum in, gravida et diam. Suspendisse vestibulum vel nulla ac tristique. Curabitur vel diam non tortor interdum volutpat vel ac erat. Vivamus bibendum metus et dui sollicitudin, et egestas justo lobortis. Morbi sem lorem, imperdiet quis enim vitae, imperdiet consequat diam. Vestibulum ex tellus, ornare vel molestie non, congue at tortor.
-        Etiam consectetur porta nisl et malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi et auctor dolor, vel gravida libero. Morbi placerat diam lacus, eu scelerisque diam ullamcorper lacinia. Aliquam ac vestibulum lectus, in rutrum orci. Curabitur pulvinar porta justo, eget varius odio aliquam ut. Integer bibendum felis at libero tempor facilisis. Fusce at diam eget arcu cursus congue sit amet vel erat. Donec viverra arcu lacus, id eleifend nisl venenatis viverra. Phasellus efficitur est aliquet sodales luctus. Vivamus vulputate metus a augue sollicitudin imperdiet eu ut sapien. Donec a consectetur felis. Quisque ac hendrerit nibh, a rutrum turpis. Aliquam in commodo nibh. Mauris eget viverra eros, et aliquet felis. Integer eleifend condimentum lacus, vitae sagittis lorem finibus ut.
-        Fusce mattis semper nisl, nec vulputate lectus euismod ut. Sed vehicula ex a lacus convallis, at tincidunt sem viverra. Vestibulum eu arcu risus. Integer tincidunt gravida sagittis. Proin cursus a erat at tincidunt. Aenean id interdum risus, vulputate mollis enim. Integer ac accumsan nunc, vel auctor nibh. Praesent lacinia pellentesque mauris, nec fermentum velit. Aliquam et laoreet mi. Aliquam erat volutpat.
-      </p>
+    <div class="mid-div">
+
+      <h1>Account page</h1>
+
+      <div class="main-left-div">
+        <p>
+          Want to change something?<br/>
+          Change it in the text fields down there, and press the button!<br/>
+        </p>
+        <form title="accountModifyForm">
+          <input type="text" title="username" id="username" value="username"/><br/>
+          <input type="text" title="lastname" id="lastname" value="lastname"/><br/>
+          <input type="text" title="firstname" id="firstname" value="firstname"/><br/>
+          <input type="text" title="mail" id="mail" value="mail"/><br/>
+          <input type="password" title="password" id="password" value="password"/><br/>
+          <input type="button" id="accountButton" value="Confirm">
+        </form>
+
+        <p>
+          If you want to log out, click that button!
+        </p>
+        <input type="button" value="Log out!" id="logoutButton">
+
+      </div>
+      <div class="main-mid-div"></div>
+      <div class="main-right-div">
+        <p>
+          Data about the user<br/><br/>
+
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor elementum odio, at vehicula ante condimentum et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut maximus odio in ante iaculis accumsan. Donec ornare lectus vel erat fringilla, a pulvinar elit pellentesque. Praesent ipsum eros, semper eu tempor vitae, aliquet eu tellus. Vestibulum ut commodo magna. Donec eget lacus feugiat, rutrum lacus eu, vestibulum elit. Proin sed tellus neque. Phasellus rhoncus eu magna eu euismod. Vivamus eu orci ut velit laoreet aliquet quis a purus. Vivamus condimentum laoreet libero nec cursus. Integer porta laoreet quam quis porta. Donec magna quam, maximus et consequat eget, sagittis sed lorem.
+          Donec eu varius diam, a cursus quam. Donec et lorem quis lectus tempus consequat. Nam eu dictum lorem. Cras porta felis est, quis consequat sapien tincidunt eget. Sed vel turpis turpis. Morbi a dolor dui. Maecenas blandit ultrices turpis, et hendrerit ipsum tincidunt id.
+          Curabitur in facilisis felis, interdum malesuada diam. Suspendisse a nulla eu ex tempor tristique. Aenean ac ex tincidunt, sodales velit sit amet, vestibulum turpis. Vivamus nec viverra nisi. Aenean dui ipsum, dapibus a orci vel, fringilla ultrices erat. Nunc molestie, tellus a fermentum ultricies, ante nisi consectetur mi, eu tempus eros ex eget magna. In maximus nisl massa, ut tincidunt ipsum pulvinar eu. Sed rutrum, nibh id dapibus tempus, urna ligula accumsan quam, at elementum urna odio a libero. Aenean ligula velit, pulvinar rutrum bibendum in, gravida et diam. Suspendisse vestibulum vel nulla ac tristique. Curabitur vel diam non tortor interdum volutpat vel ac erat. Vivamus bibendum metus et dui sollicitudin, et egestas justo lobortis. Morbi sem lorem, imperdiet quis enim vitae, imperdiet consequat diam. Vestibulum ex tellus, ornare vel molestie non, congue at tortor.
+          Etiam consectetur porta nisl et malesuada. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi et auctor dolor, vel gravida libero. Morbi placerat diam lacus, eu scelerisque diam ullamcorper lacinia. Aliquam ac vestibulum lectus, in rutrum orci. Curabitur pulvinar porta justo, eget varius odio aliquam ut. Integer bibendum felis at libero tempor facilisis. Fusce at diam eget arcu cursus congue sit amet vel erat. Donec viverra arcu lacus, id eleifend nisl venenatis viverra. Phasellus efficitur est aliquet sodales luctus. Vivamus vulputate metus a augue sollicitudin imperdiet eu ut sapien. Donec a consectetur felis. Quisque ac hendrerit nibh, a rutrum turpis. Aliquam in commodo nibh. Mauris eget viverra eros, et aliquet felis. Integer eleifend condimentum lacus, vitae sagittis lorem finibus ut.
+          Fusce mattis semper nisl, nec vulputate lectus euismod ut. Sed vehicula ex a lacus convallis, at tincidunt sem viverra. Vestibulum eu arcu risus. Integer tincidunt gravida sagittis. Proin cursus a erat at tincidunt. Aenean id interdum risus, vulputate mollis enim. Integer ac accumsan nunc, vel auctor nibh. Praesent lacinia pellentesque mauris, nec fermentum velit. Aliquam et laoreet mi. Aliquam erat volutpat.
+        </p>
+      </div>
     </div>
   </div>
 
