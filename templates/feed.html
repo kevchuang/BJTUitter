@@ -13,9 +13,9 @@
 
       <div class="left-div">
           <div class="inputs">
-              <form title="post-form">
+              <form title="post-form" action="{{ url_for('feed') }}" method="post">
                   <input type="text" name="post-content" placeholder="What do you wanna say?" id="postContent">
-                  <input type="button" value="Post!" name="postbutton" id="postButton">
+                  <input type="submit" value="Post!" name="postbutton" id="postButton">
               </form>
           </div>
       </div>
