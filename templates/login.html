@@ -19,10 +19,10 @@
       </h1>
       <div class="inputs">
         {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-        <form title="loginForm" action="login.html">
-          <input type="text" id="login" placeholder="Login or Mail" class="text-in-form"/><br/><br/>
-          <input type="password" id="password" placeholder="Password" class="text-in-form"/><br/>
-          <input type="button" id="loginButton" value="Log In!">
+        <form title="loginForm" action="{{ url_for('login') }}" method="post">
+          <input type="text" name="username" placeholder="Login or Mail" class="text-in-form"/><br/><br/>
+          <input type="password" name="password" placeholder="Password" class="text-in-form"/><br/>
+          <input type="submit" id="loginButton" value="Log In!">
         </form>
       </div>
       <div class="little-links">

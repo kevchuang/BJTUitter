@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="BJTUTwitter@localhost" uuid="c2418f29-f0cf-4173-9ede-1c0c8a509752">
+    <data-source source="LOCAL" name="BJTUTwitter@192.168.1.106" uuid="c2418f29-f0cf-4173-9ede-1c0c8a509752">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5434/BJTUTwitter</jdbc-url>
+      <jdbc-url>jdbc:postgresql://192.168.1.106:5434/BJTUTwitter</jdbc-url>
       <driver-properties>
         <property name="ApplicationName" value="DataGrip" />
       </driver-properties>

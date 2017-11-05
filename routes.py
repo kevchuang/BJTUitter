@@ -59,10 +59,9 @@ def logout():
 @app.route('/account', methods=['GET', 'POST'])
 def account():
     entries = None
-    if request.method == 'GET':
-        SQL = "SELECT * FROM \"USER\" WHERE user_id = %s;"
-        cur.execute(SQL, (str(session['user_id'])))
-        entries = cur.fetchone()
+    SQL = "SELECT * FROM \"USER\" WHERE user_id = %s;"
+    cur.execute(SQL, (str(session['user_id'])))
+    entries = cur.fetchone()
     if request.method == 'POST':
         SQL = "UPDATE \"USER\" SET lastname = %s, firstname = %s, nickname = %s, mail = %s WHERE user_id = %s;"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['nickname'], request.form['mail'].lower().strip(), str(session['user_id'])))
@@ -71,9 +70,14 @@ def account():
         conn.commit()
     return render_template('account.html', entries=entries)
 
-# @app.route('/feed', methods=['GET', 'POST'])
-# def feed():
-#     return render_template('feed.html')
+@app.route('/feed', methods=['GET', 'POST'])
+def feed():
+    return render_template('feed.html')
+
+@app.route('/main', methods=['GET', 'POST'])
+def main():
+    return render_template('main.html')
+
 
 if __name__ == '__main__':
     app.run()
