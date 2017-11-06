@@ -68,18 +68,18 @@ def registration():
     error = None
     gender = -1
     if request.method == 'POST':
-        if request.form['gender'] == 'Male':
+        if request.form['gender'] == 'male':
             gender = 1
-        elif request.form['gender'] == 'Female':
+        elif request.form['gender'] == 'female':
             gender = 0
         else:
             error = 'Please specify a gender'
-            return render_template('registration.html', error)
+            return render_template('registration.html')
         SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, crypt(%s, gen_salt('bf', 8)))"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
-        return render_template('login.html')
-    return render_template('registration.html', error)
+        return redirect('login')
+    return render_template('registration.html')
 
 @app.route('/logout')
 def logout():
