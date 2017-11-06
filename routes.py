@@ -13,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -74,10 +74,12 @@ def registration():
             gender = 0
         else:
             error = 'Please specify a gender'
+            return render_template('registration.html', error)
         SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, crypt(%s, gen_salt('bf', 8)))"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
-    return render_template('registration.html')
+        return render_template('login.html')
+    return render_template('registration.html', error)
 
 @app.route('/logout')
 def logout():
