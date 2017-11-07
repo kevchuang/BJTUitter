@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import time
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
 app = Flask(__name__)
@@ -12,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -29,24 +30,55 @@ def login():
             session['logged_in'] = True
             session['user_id'] = ret[8]
             flash('Successfully login')
-            return redirect('account')
+            return redirect('feed')
 
     return render_template('login.html', error=error)
+
+@app.route('/feed', methods=['GET'])
+def feed():
+    error = None
+    entries = None
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
+    cur.execute(SQL, (session['user_id'],))
+    entries = cur.fetchall()
+
+    return render_template('feed.html', entries=entries)
+
+@app.route('/add_post', methods=['GET', 'POST'])
+def add_post():
+    error = None
+    if request.method == 'POST':
+        SQL = "INSERT INTO \"POSTS\" (content, date, user_id) VALUES(%s, %s, %s);"
+        cur.execute(SQL, (request.form['post-content'], time.strftime("%A %d %B %Y %H:%M:%S"), str(session['user_id'])))
+        conn.commit()
+    return redirect('feed')
+
+@app.route('/like', methods=['GET', 'POST'])
+def likes():
+    error = None
+    if request.method == 'POST':
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
+        cur.execute(SQL, (session['user_id'], request.form['post_id']))
+        conn.commit()
+        SQL = "UPDATE \"POSTS\" "
+    return redirect('feed')
 
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     error = None
     gender = -1
     if request.method == 'POST':
-        if request.form['gender'] == 'Male':
+        if request.form['gender'] == 'male':
             gender = 1
-        elif request.form['gender'] == 'Female':
+        elif request.form['gender'] == 'female':
             gender = 0
         else:
             error = 'Please specify a gender'
+            return render_template('registration.html')
         SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, crypt(%s, gen_salt('bf', 8)))"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
+        return redirect('login')
     return render_template('registration.html')
 
 @app.route('/logout')
@@ -70,9 +102,6 @@ def account():
         conn.commit()
     return render_template('account.html', entries=entries)
 
-@app.route('/feed', methods=['GET', 'POST'])
-def feed():
-    return render_template('feed.html')
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
