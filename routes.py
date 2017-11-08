@@ -44,6 +44,32 @@ def feed():
 
     return render_template('feed.html', entries=entries)
 
+
+@app.route('/post/<post_id>', methods=['GET', 'POST'])
+def post(post_id):
+    error = None
+    entries = None
+    SQL = "SELECT * FROM \"POSTS\" WHERE post_id = %s"
+    cur.execute(SQL, post_id)
+    entries = cur.fetchall()
+
+    return render_template('post.html', entries=entries)
+
+# @app.route('/like', methods=['GET', 'POST'])
+# def like():
+#
+#     SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES (%s, %s);"
+#     return redirect(like)
+
+@app.route('/add_comment?post_id=<post_id>', methods=['GET', 'POST'])
+def add_comment(post_id):
+    error = None
+    if request.method == 'POST':
+        SQL = "INSERT INTO \"POSTS\" (content, date, ans_to_post, user_id) VALUES(%s, %s, %s, %s);"
+        cur.execute(SQL, (request.form['comment'], time.strftime("%A %d %B %Y %H:%M:%S"), post_id, str(session['user_id'])))
+        conn.commit()
+    return redirect('post/' + post_id)
+
 @app.route('/add_post', methods=['GET', 'POST'])
 def add_post():
     error = None
@@ -68,15 +94,17 @@ def registration():
     error = None
     gender = -1
     if request.method == 'POST':
-        if request.form['gender'] == 'Male':
+        if request.form['gender'] == 'male':
             gender = 1
-        elif request.form['gender'] == 'Female':
+        elif request.form['gender'] == 'female':
             gender = 0
         else:
             error = 'Please specify a gender'
+            return render_template('registration.html')
         SQL = "INSERT INTO \"USER\" (lastname, firstname, nickname, gender, mail, login_username, password) VALUES (%s, %s, %s, %s, %s, %s, crypt(%s, gen_salt('bf', 8)))"
         cur.execute(SQL, (request.form['lastname'], request.form['firstname'], request.form['login'].lower().strip(), str(gender), request.form['mail'].lower().strip(), request.form['login'].lower().strip(), request.form['password']))
         conn.commit()
+        return redirect('login')
     return render_template('registration.html')
 
 @app.route('/logout')

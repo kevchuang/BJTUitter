@@ -21,16 +21,16 @@
       </div>
 
     <div class="mid-div">
-
+        {% for entry in entries %}
         <div class="post">
             <img class="post-useravatar" src="{{ url_for('static', filename='avatar.png') }}">
-            <span class="post-username">Username</span>
-            <span class="post-content">blah blah blah</span>
-            <span class="post-date">12/34/5678</span>
-            <a class="post-like" href="#">Like <span>X</span></a>
-            <a class="post-comment" href="#">Comment <span>X</span></a>
+            <span class="post-username">Nickname</span>
+            <span class="post-content">{{ entry[1] }}</span>
+            <span class="post-date">{{ entry[2] }}</span>
+            <a class="post-like" href="#">Like <span>{{ entry[3] }}</span></a>
+            <a class="post-comment" href="/post/{{ entry[0] }}">Comment <span>X</span></a>
         </div>
-
+    {%  endfor %}
     </div>
 
   </div>
