@@ -47,10 +47,8 @@
 .post {
     position: relative;
     display: inline-block;
-    width: 80%;
-    box-shadow: 0 10px 6px black;
+    width: 98%;
     border: inset 2px black;
-    margin-left: 10%;
     margin-top: 5px;
     min-height: 100px;
     background-color: white;
@@ -104,6 +102,12 @@
     right: 5%;
 }
 
+.post-edit {
+    position: absolute;
+    top: 0;
+    right: 2%;
+}
+
 a {
     text-decoration: none;
 }
@@ -118,9 +122,8 @@ a:hover {
 
 .comment-section {
     text-align: center;
-    position: absolute  ;
+    position: absolute;
     width: 80%;
-    top: 20%;
     left: 10%;
     height: auto;
 }
@@ -132,7 +135,6 @@ a:hover {
     height: 40px;
     width: 50%;
     transition: 0.5s;
-    margin-bottom: 5%;
 }
 
 .comment-section input:hover {
@@ -148,28 +150,32 @@ a:hover {
 }
 
 #submitButton {
-    position: absolute;
-    left: 33%;
-    right: 0;
-    top: 100%;
     background-color: white;
     border: 2px solid #99d5cf;
-    width: 33%;
+    width: 10%;
     border-radius: 4px;
     transition: 0.5s;
     margin-top: 0;
 }
 
-#submitButton:hover {
-    position: absolute;
-    background-color: #cceae7;
-    border: 2px solid #32ab9f;
-    border-radius: 40px;
-    left: 20%;
-    width: 60%;
-    margin-top: 0;
+.userComments {
+    margin-top: 1%;
+    width: 100%;
+    height: auto;
+    background: white;
+    border: 2px solid black;
 }
 
-#submitButton:active {
-    transform: translateY(4px);
+.comment {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-height: 80px;
+    height: auto;
+    margin-top: 5px;
+    background: white;
+}
+
+.comment:hover {
+    background: #EEEEEE;
 }
