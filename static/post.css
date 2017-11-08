@@ -23,9 +23,17 @@
     left: 0;
 }
 
-.top-div #loginLink {
+.top-div #logoutLink {
     position: absolute;
     right: 2%;
+    top: 2%;
+    font-size: 200%;
+    color: black;
+}
+
+.top-div #accountLink {
+    position: absolute;
+    right: 10%;
     top: 2%;
     font-size: 200%;
     color: black;
