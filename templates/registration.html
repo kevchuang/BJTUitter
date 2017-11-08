@@ -16,18 +16,18 @@
     </h1>
     <div class="inputs">
       <form title="registrationForm" action="{{ url_for('registration') }}" method="post">
-        <input type="text" id="lastname" placeholder="Lastname" class="text-in-form"/><br/>
-        <input type="text" id="firstname" placeholder="Firstname" class="text-in-form"/><br/>
-        <input type="text" id="mail" placeholder="Mail" class="text-in-form"/><br/>
+        <input type="text" name="login" placeholder="Login" class="text-in-form"/><br/>
+        <input type="text" name="lastname" placeholder="Lastname" class="text-in-form"/><br/>
+        <input type="text" name="firstname" placeholder="Firstname" class="text-in-form"/><br/>
+        <input type="text" name="mail" placeholder="Mail" class="text-in-form"/><br/>
         <select name="gender">
           <option value="-" selected >Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="error">Oh...</option>
         </select><br/>
-        <input type="password" id="password" placeholder="Password" class="text-in-form"/><br/>
-        <input type="password" id="password-confirm" placeholder="Confirm Password" class="text-in-form"/><br/>
-        <input type="button" id="registrationButton" value="Register!">
+        <input type="password" name="password" placeholder="Password" class="text-in-form"/><br/>
+        <input type="submit" id="registrationButton" value="Register!">
       </form>
     </div>
 
