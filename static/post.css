@@ -187,3 +187,75 @@ a:hover {
 .comment:hover {
     background: #EEEEEE;
 }
+
+/*
+** Popup boxes
+ */
+
+#editBox, #deleteBox {
+    display: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(20, 20, 20, 0.8);
+}
+
+.editBox, .deleteBox {
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    position: fixed;
+    width: 30%;
+    height: 20%;
+    left: 35%;
+    top: 10%;
+    padding: 6px 8px 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#editBox #editBoxText {
+    font-family: "Calibri", Arial, sans-serif;
+    text-align: center;
+    border: 2px solid #99d5cf;
+    height: 40px;
+    width: 50%;
+    transition: 0.5s;
+}
+
+#editBox #editBoxText:hover {
+    border:2px solid #32ab9f;
+}
+
+#editBox #editBoxText:focus {
+    width: 80%;
+    height: 100px;
+    border: 2px solid #32ab9f;
+    background-color: #cceae7;
+    border-radius: 40px;
+}
+
+.editBoxOk, .editBoxCancel, .deleteBoxOk, .deleteBoxCancel {
+    background-color: #ccc;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    padding: 2px;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+}
+
+.editBoxOk:hover, .editBoxCancel:hover, .deleteBoxOk:hover, .deleteBoxCancel:hover {
+    background-color: #ddd;
+}
+#editBox .message
+{
+    text-align: left;
+    margin-bottom: 8px;
+}

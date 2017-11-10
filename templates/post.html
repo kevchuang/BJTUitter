@@ -1,6 +1,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='post.css') }}">
     <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='post.js') }}"></script>
 </head>
 <body>
 
@@ -18,7 +19,8 @@
             <span class="post-username">Nickname</span>
             <span class="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
-            <span class="post-edit"><a href="">Edit</a></span>
+            <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
+            <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
         <div class="comment-section">
@@ -45,5 +47,23 @@
     </div>
 
 </div>
+
+    <div id="editBox">
+        <div class="overlay"></div>
+        <div class="editBox">
+            <div class="editBoxMsg"></div>
+            <input type="text" id="editBoxText"><br/>
+            <span class="editBoxOk">Ok!</span>
+            <span class="editBoxCancel">Cancel</span>
+        </div>
+    </div>
+    <div id="deleteBox">
+        <div class="overlay"></div>
+        <div class="deleteBox">
+            <div class="deleteBoxMsg"></div>
+            <span class="deleteBoxOk">I am sure</span>
+            <span class="deleteBoxCancel">Cancel</span>
+        </div>
+    </div>
 
 </body>
