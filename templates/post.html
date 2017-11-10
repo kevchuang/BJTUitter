@@ -19,7 +19,7 @@
             <span class="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
             <span class="post-edit"><a href="">Edit</a></span>
-            <a class="post-like" href="/like/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
+            <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
         <div class="comment-section">
             <div class="userComments">
@@ -30,7 +30,7 @@
                     <span class="post-content">{{ comment[1] }}</span>
                     <span class="post-date">{{ comment[2] }}</span>
                     <span class="post-edit"><a href="">Edit</a></span>
-                    <a class="post-like" href="/like/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
+                    <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
             {%  endfor %}
             </div>

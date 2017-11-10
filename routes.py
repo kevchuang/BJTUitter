@@ -39,7 +39,7 @@ def feed():
     error = None
     entries = None
 
-    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL"
     cur.execute(SQL, (session['user_id'],))
     entries = cur.fetchall()
 
@@ -84,6 +84,27 @@ def add_post():
         conn.commit()
     return redirect('feed')
 
+@app.route('/like_post/<post_page>/<post_id>')
+def like_post(post_page, post_id):
+    error = None
+
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+    cur.execute(SQL, (str(session['user_id']), post_id))
+    ret = cur.fetchone()
+
+    if ret == None:
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s);"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % (post_id)
+        cur.execute(SQL)
+    else:
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % (post_id)
+        cur.execute(SQL)
+    conn.commit()
+    return redirect('post/' + post_page)
+
 @app.route('/like/<post_id>', methods=['GET', 'POST'])
 def like(post_id):
     error = None
@@ -94,11 +115,14 @@ def like(post_id):
     if ret == None:
         SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
         cur.execute(SQL, (str(session['user_id']), post_id))
-        conn.commit()
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;"
+        cur.execute(SQL, post_id)
     else:
         SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
         cur.execute(SQL, (str(session['user_id']), post_id))
-        conn.commit()
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;"
+        cur.execute(SQL, post_id)
+    conn.commit()
     return redirect('feed')
 
 @app.route('/registration', methods=['GET', 'POST'])
