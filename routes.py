@@ -13,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
 cur = conn.cursor()
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -38,6 +38,7 @@ def login():
 def feed():
     error = None
     entries = None
+
     SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
     cur.execute(SQL, (session['user_id'],))
     entries = cur.fetchall()
@@ -79,14 +80,21 @@ def add_post():
         conn.commit()
     return redirect('feed')
 
-@app.route('/like', methods=['GET', 'POST'])
-def likes():
+@app.route('/like/<post_id>', methods=['GET', 'POST'])
+def like(post_id):
     error = None
-    if request.method == 'POST':
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+    cur.execute(SQL, (str(session['user_id']), post_id))
+    ret = cur.fetchone()
+
+    if ret == None:
         SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
-        cur.execute(SQL, (session['user_id'], request.form['post_id']))
+        cur.execute(SQL, (str(session['user_id']), post_id))
         conn.commit()
-        SQL = "UPDATE \"POSTS\" "
+    else:
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        conn.commit()
     return redirect('feed')
 
 @app.route('/registration', methods=['GET', 'POST'])

@@ -28,7 +28,7 @@
             <span class="post-username">Nickname</span>
             <span class="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
-            <a class="post-like" href="#">Like <span>{{ entry[3] }}</span></a>
+            <a class="post-like" href="/like/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
             <a class="post-comment" href="/post/{{ entry[0] }}">Comment <span>X</span></a>
         </div>
     {%  endfor %}
