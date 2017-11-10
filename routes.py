@@ -50,11 +50,15 @@ def feed():
 def post(post_id):
     error = None
     entries = None
+    comments = None
+
     SQL = "SELECT * FROM \"POSTS\" WHERE post_id = %s"
     cur.execute(SQL, post_id)
     entries = cur.fetchall()
-
-    return render_template('post.html', entries=entries)
+    SQL = "SELECT * FROM \"POSTS\" WHERE ans_to_post = %s"
+    cur.execute(SQL, post_id)
+    comments = cur.fetchall()
+    return render_template('post.html', entries=entries, comments=comments)
 
 # @app.route('/like', methods=['GET', 'POST'])
 # def like():

@@ -19,24 +19,26 @@
             <span class="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
             <span class="post-edit"><a href="">Edit</a></span>
-            <a class="post-like" href="#">Like <span>{{ entry[3] }}</span></a>
+            <a class="post-like" href="/like/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
         <div class="comment-section">
-          <form action="{{ url_for('add_comment', post_id=entry[0]) }}" method="post">
-            <input type="text" name="comment" id="comment" placeholder="Comment!">
-            <input type="submit" name="submitButton" id="submitButton" value="OK!">
-          </form>
             <div class="userComments">
+            {% for comment in comments %}
                 <div class="comment">
                     <img class="post-useravatar" src="{{ url_for('static', filename='avatar.png') }}">
                     <span class="post-username">Nickname</span>
-                    <span class="post-content">{{ entry[1] }}</span>
-                    <span class="post-date">{{ entry[2] }}</span>
+                    <span class="post-content">{{ comment[1] }}</span>
+                    <span class="post-date">{{ comment[2] }}</span>
                     <span class="post-edit"><a href="">Edit</a></span>
-                    <a class="post-like" href="#">Like <span>{{ entry[3] }}</span></a>
+                    <a class="post-like" href="/like/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
-
+            {%  endfor %}
             </div>
+        <form action="{{ url_for('add_comment', post_id=entry[0]) }}" method="post">
+            <input type="text" name="comment" id="comment" placeholder="Comment!">
+            <input type="submit" name="submitButton" id="submitButton" value="OK!">
+        </form>
+
 
         {%  endfor %}
 
