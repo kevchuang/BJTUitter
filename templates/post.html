@@ -1,7 +1,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='post.css') }}">
     <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
-    <script src="{{ url_for('static', filename='post.js') }}"></script>
+    <script src="{{ url_for('static', filename='post.js') }}" type="text/javascript"></script>
 </head>
 <body>
 
@@ -19,8 +19,10 @@
             <span class="post-username">Nickname</span>
             <span class="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
-            <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
-            <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
+            <div class="edit-delete-links">
+                <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
+                <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
+            </div>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
         <div class="comment-section">
@@ -31,7 +33,9 @@
                     <span class="post-username">Nickname</span>
                     <span class="post-content">{{ comment[1] }}</span>
                     <span class="post-date">{{ comment[2] }}</span>
-                    <span class="post-edit"><a href="">Edit</a></span>
+                    <div class="edit-delete-links">
+                        <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
+                    </div>
                     <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
             {%  endfor %}
