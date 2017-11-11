@@ -3,6 +3,7 @@ function editBoxPopup(postId) {
     //Init vars and show popup
     //Get the value field of input text to put it in popup text area
 
+    /*
     var postContent;
     postContent = document.getElementById("post-content").innerHTML;
     document.getElementById("editBoxText").value = postContent;
@@ -13,6 +14,8 @@ function editBoxPopup(postId) {
     document.getElementById("editBoxCancel").addEventListener("click", hideBox);
     document.getElementById("editBoxCancel").addEventListener("click", noFn);
     document.getElementById("editBox").style.display = "block";
+    */
+    document.getElementById("edit-textarea").style.display = "block";
 }
 
 function deleteBoxPopup() {

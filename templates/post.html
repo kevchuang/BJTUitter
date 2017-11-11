@@ -30,6 +30,16 @@
             </div>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
+
+        <div id="edit-textarea">
+            <div class="edit-textarea">
+                <form>
+                    <input type="text" name="editText" placeholder="Edit">
+                    <input type="submit" id="editSubmit" name="editSubmit" value="Ok!">
+                </form>
+            </div>
+        </div>
+
         <div class="comment-section">
             <div class="userComments">
             {% for comment in comments %}
