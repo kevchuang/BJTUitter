@@ -43,7 +43,13 @@ function editYesFn() {
 
 function deleteYesFn() {
     //Going back to Feed page
-    window.location.replace("/feed");
+    $.ajax({
+        type: "POST",
+        url: "TA ROUTE ICI VIVI",
+        data: {}
+    }).done(function() {
+        window.location.replace("/feed");
+    });
 }
 
 function noFn() {
