@@ -23,17 +23,9 @@
     left: 0;
 }
 
-.top-div #logoutLink {
+.top-div #loginLink {
     position: absolute;
     right: 2%;
-    top: 2%;
-    font-size: 200%;
-    color: black;
-}
-
-.top-div #accountLink {
-    position: absolute;
-    right: 10%;
     top: 2%;
     font-size: 200%;
     color: black;
@@ -96,6 +88,7 @@
 .post-date {
     position: absolute;
     bottom: 0;
+    left: 0;
 }
 
 .post-like {
@@ -110,7 +103,7 @@
     right: 5%;
 }
 
-.post-edit {
+.edit-delete-links {
     position: absolute;
     top: 0;
     right: 2%;
@@ -120,12 +113,30 @@ a {
     text-decoration: none;
 }
 
-a:visited {
-    color: #66c0b7;
+.post-edit a {
+    color: #009688;
+    transition: 0.3s;
 }
 
-a:hover {
-    color: #32ab9f;
+.post-delete a {
+    color: #AA0000;
+    transition: 0.3s;
+}
+
+.post-edit a:hover {
+    color: #66c0b7;
+    text-decoration: underline;
+    font-size: 150%;
+}
+
+.post-delete a:hover {
+    color: #FF0000;
+    text-decoration: underline;
+    font-size: 150%;
+}
+
+a:visited {
+    color: #66c0b7;
 }
 
 .comment-section {
@@ -178,7 +189,7 @@ a:hover {
     position: relative;
     display: inline-block;
     width: 100%;
-    min-height: 80px;
+    min-height: 100px;
     height: auto;
     margin-top: 5px;
     background: white;
@@ -187,10 +198,6 @@ a:hover {
 .comment:hover {
     background: #EEEEEE;
 }
-
-/*
-** Popup boxes
- */
 
 #editBox, #deleteBox {
     display: none;
@@ -239,7 +246,6 @@ a:hover {
     background-color: #cceae7;
     border-radius: 40px;
 }
-
 .editBoxOk, .editBoxCancel, .deleteBoxOk, .deleteBoxCancel {
     background-color: #ccc;
     display: inline-block;
