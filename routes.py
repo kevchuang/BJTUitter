@@ -39,8 +39,8 @@ def feed():
     error = None
     entries = None
 
-    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL"
-    cur.execute(SQL, (session['user_id'],))
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL" % str(session['user_id'])
+    cur.execute(SQL)
     entries = cur.fetchall()
 
     return render_template('feed.html', entries=entries)
@@ -52,11 +52,11 @@ def post(post_id):
     entries = None
     comments = None
 
-    SQL = "SELECT * FROM \"POSTS\" WHERE post_id = %s"
-    cur.execute(SQL, post_id)
+    SQL = "SELECT * FROM \"POSTS\" WHERE post_id = %s" % post_id
+    cur.execute(SQL)
     entries = cur.fetchall()
-    SQL = "SELECT * FROM \"POSTS\" WHERE ans_to_post = %s"
-    cur.execute(SQL, post_id)
+    SQL = "SELECT * FROM \"POSTS\" WHERE ans_to_post = %s" % post_id
+    cur.execute(SQL)
     comments = cur.fetchall()
     return render_template('post.html', entries=entries, comments=comments)
 
@@ -88,19 +88,19 @@ def add_post():
 def like_post(post_page, post_id):
     error = None
 
-    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
-    cur.execute(SQL, (str(session['user_id']), post_id))
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
+    cur.execute(SQL)
     ret = cur.fetchone()
 
     if ret == None:
-        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s);"
-        cur.execute(SQL, (str(session['user_id']), post_id))
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % (post_id)
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s);" % (str(session['user_id']), post_id)
+        cur.execute(SQL)
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % post_id
         cur.execute(SQL)
     else:
-        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
-        cur.execute(SQL, (str(session['user_id']), post_id))
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % (post_id)
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
+        cur.execute(SQL)
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % post_id
         cur.execute(SQL)
     conn.commit()
     return redirect('post/' + post_page)
@@ -108,20 +108,20 @@ def like_post(post_page, post_id):
 @app.route('/like/<post_id>', methods=['GET', 'POST'])
 def like(post_id):
     error = None
-    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
-    cur.execute(SQL, (str(session['user_id']), post_id))
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
+    cur.execute(SQL)
     ret = cur.fetchone()
 
     if ret == None:
-        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
-        cur.execute(SQL, (str(session['user_id']), post_id))
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;"
-        cur.execute(SQL, post_id)
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)" % (str(session['user_id']), post_id)
+        cur.execute(SQL)
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % post_id
+        cur.execute(SQL)
     else:
-        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
-        cur.execute(SQL, (str(session['user_id']), post_id))
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;"
-        cur.execute(SQL, post_id)
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
+        cur.execute(SQL)
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % post_id
+        cur.execute(SQL)
     conn.commit()
     return redirect('feed')
 
