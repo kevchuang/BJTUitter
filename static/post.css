@@ -23,15 +23,30 @@
     left: 0;
 }
 
-.top-div #loginLink {
+.account-links {
     position: absolute;
-    right: 2%;
     top: 2%;
-    font-size: 200%;
+    right: 4%;
+}
+
+.account-links a {
+    font-size: 180%;
+    text-decoration: none;
+}
+
+.account-links #logoutLink {
     color: black;
 }
 
-.top-div #loginLink:hover {
+.account-links #accountLink {
+    color: white;
+}
+
+.account-links #logoutLink:hover {
+    color: #66c0b7;
+}
+
+.account-links #accountLink:hover {
     color: #66c0b7;
 }
 

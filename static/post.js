@@ -7,28 +7,30 @@ function editBoxPopup() {
     postContent = document.getElementById("post-content").innerHTML;
     document.getElementById("editBoxText").value = postContent;
 
-    var popUp = $("#editBox");
-    popUp.find(".editBoxOk,.editBoxCancel").unbind().click(function () {
-        popUp.hide();
-    });
-    popUp.find(".editBoxOk").click(editYesFn);
-    popUp.find(".editBoxCancel").click(noFn);
-    popUp.show();
+    var popup = document.getElementById("editBox").innerHTML;
+    document.getElementById("editBoxOk").addEventListener("click", hideBox);
+    document.getElementById("editBoxOk").addEventListener("click", editYesFn);
+    document.getElementById("editBoxCancel").addEventListener("click", hideBox);
+    document.getElementById("editBoxCancel").addEventListener("click", noFn);
+    document.getElementById("editBox").style.display = "block";
 }
 
 function deleteBoxPopup() {
 
     //Init vars and show popup
 
-    var popUp = $("#deleteBox");
-    popUp.find(".deleteBoxOk,.deleteBoxCancel").unbind().click(function () {
-        popUp.hide();
-    });
-    popUp.find(".deleteBoxMsg").text("Are you sure you want to delete this post?");
-    popUp.find(".deleteBoxOk").click(deleteYesFn);
-    popUp.find(".deleteBoxCancel").click(noFn);
-    popUp.show();
+    var popup = document.getElementById("deleteBox").innerHTML;
+    document.getElementById("deleteBoxOk").addEventListener("click", hideBox);
+    document.getElementById("deleteBoxOk").addEventListener("click", deleteYesFn);
+    document.getElementById("deleteBoxCancel").addEventListener("click", hideBox);
+    document.getElementById("deleteBoxCancel").addEventListener("click", noFn);
+    document.getElementById("deleteBox").style.display = "block";
 }
+
+function hideBox() {
+    document.getElementById("editBox").style.display = "none"
+}
+
 
 function editYesFn() {
 
