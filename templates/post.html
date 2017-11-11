@@ -25,7 +25,7 @@
             <span class="post-content" id="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
             <div class="edit-delete-links">
-                <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
+                <span class="post-edit"><a href="javascript:editBoxPopup('{{ entry[0] }}')">Edit</a></span>
                 <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
             </div>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
@@ -39,7 +39,7 @@
                     <span class="post-content" id="post-content-comment">{{ comment[1] }}</span>
                     <span class="post-date">{{ comment[2] }}</span>
                     <div class="edit-delete-links">
-                        <span class="post-edit"><a href="javascript:editBoxPopup()">Edit</a></span>
+                        <span class="post-edit"><a href="javascript:editBoxPopup('{{ entry[0] }}')">Edit</a></span>
                         <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
                     </div>
                     <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
