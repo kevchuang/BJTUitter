@@ -25,14 +25,14 @@
             <span class="post-content" id="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
             <div class="edit-delete-links">
-                <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
+                <span class="post-delete"><a href="/delete/{{ entry[0] }}">Delete</a></span>
             </div>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
 
 
         <div class="editPost">
-            <form>
+            <form action="{{ url_for('edit', post_page=entry[0], post_edit=entry[0]) }}" method="post">
                 <input type="text" name="editPostText" placeholder="Edit">
                 <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">
             </form>
@@ -52,13 +52,12 @@
                     <span class="post-content" id="post-content-comment">{{ comment[1] }}</span>
                     <span class="post-date">{{ comment[2] }}</span>
                     <div class="edit-delete-links">
-                        <span class="post-edit"><a href="javascript:editBoxPopup('{{ entry[0] }}')">Edit</a></span>
-                        <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
+                        <span class="post-delete"><a href="/delete/{{ comment[0] }}">Delete</a></span>
                     </div>
                     <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
                 <div class="editPost">
-                    <form>
+                    <form action="{{ url_for('edit', post_page=entry[0], post_edit=comment[0]) }}" method="post">
                         <input type="text" name="editPostText" placeholder="Edit">
                         <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">
                     </form>

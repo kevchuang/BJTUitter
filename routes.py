@@ -13,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.104 port=5434")
 cur = conn.cursor()
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,6 +65,35 @@ def post(post_id):
 #
 #     SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES (%s, %s);"
 #     return redirect(like)
+
+@app.route('/delete/<post_id>', methods=['GET', 'POST'])
+def delete(post_id):
+    error = None
+    post = None
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND post_id = %s AND ans_to_post IS NULL"
+    cur.execute(SQL, (str(session['user_id']), post_id))
+    post = cur.fetchone()
+
+    SQL = "DELETE FROM \"POSTS\" WHERE user_id = %s AND post_id = %s" % (str(session['user_id']), post_id)
+    cur.execute(SQL)
+    if post != None:
+        SQL = "SELECT * FROM \"POSTS\" WHERE ans_to_post = %s" % post_id
+        cur.execute(SQL)
+        comments = cur.fetchall()
+        for comment in comments:
+            SQL = "DELETE FROM \"POSTS\" WHERE post_id = %s" % str(comment[0])
+            cur.execute(SQL)
+    conn.commit()
+    return redirect('feed')
+
+@app.route('/edit?post_page=<post_page>&post_edit=<post_edit>', methods=['GET', 'POST'])
+def edit(post_page, post_edit):
+    error = None
+    if request.method == 'POST':
+        SQL = "UPDATE \"POSTS\" SET content = %s WHERE post_id = %s;"
+        cur.execute(SQL, (request.form['editPostText'], post_edit))
+        conn.commit()
+    return redirect('post/' + post_page)
 
 @app.route('/add_comment?post_id=<post_id>', methods=['GET', 'POST'])
 def add_comment(post_id):
