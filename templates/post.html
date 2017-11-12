@@ -31,7 +31,7 @@
         </div>
 
 
-        <div class="editPost">
+        <div>
             <form action="{{ url_for('edit', post_page=entry[0], post_edit=entry[0]) }}" method="post">
                 <input type="text" name="editPostText" placeholder="Edit">
                 <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">
@@ -56,7 +56,7 @@
                     </div>
                     <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
-                <div class="editPost">
+                <div>
                     <form action="{{ url_for('edit', post_page=entry[0], post_edit=comment[0]) }}" method="post">
                         <input type="text" name="editPostText" placeholder="Edit">
                         <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">

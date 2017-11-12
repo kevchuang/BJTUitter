@@ -8,6 +8,10 @@
   <div class="main-div">
     <div class="top-div">
         <a href="/feed"><img src="{{ url_for('static', filename='logo_little.png') }}" id="logo"></a>
+        <form title="post-form" action="{{ url_for('search') }}" method="post" id="form-search">
+            <input type="text" name="search-content" placeholder="Look for an user">
+            <input type="submit" value="Search" name="postbutton">
+        </form>
         <a href="/account" id="accountLink">Account</a>
         <a href="/logout" id="logoutLink">Logout</a>
     </div>
@@ -31,7 +35,7 @@
             <a class="post-like" href="/like/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
             <a class="post-comment" href="/post/{{ entry[0] }}">Comment <span>X</span></a>
         </div>
-    {%  endfor %}
+        {%  endfor %}
     </div>
 
   </div>

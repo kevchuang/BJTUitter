@@ -13,8 +13,24 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.104 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
+
+@app.route('/profile/<user_id>', methods=['GET', 'POST'])
+def profile(user_id):
+    SQL = "SELECT * from \"USER\" WHERE user_id = %s"
+    cur.execute(SQL, (user_id,))
+    user = cur.fetchone()
+    return render_template('profile.html', user=user)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    SQL = "SELECT * from \"USER\" WHERE login_username = %s OR mail = %s"
+    cur.execute(SQL, (request.form['search-content'].lower().strip(), request.form['search-content'].lower().strip()))
+    ret = cur.fetchone()
+    if (ret != None):
+        return redirect('profile/' + str(ret[8]))
+    return redirect('feed')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -117,40 +133,40 @@ def add_post():
 def like_post(post_page, post_id):
     error = None
 
-    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
-    cur.execute(SQL)
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+    cur.execute(SQL, (str(session['user_id']), post_id))
     ret = cur.fetchone()
 
     if ret == None:
-        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s);" % (str(session['user_id']), post_id)
-        cur.execute(SQL)
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % post_id
-        cur.execute(SQL)
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s);"
+        cur.execute(SQL,(str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;"
+        cur.execute(SQL, (post_id,))
     else:
-        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
-        cur.execute(SQL)
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % post_id
-        cur.execute(SQL)
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;"
+        cur.execute(SQL, (post_id,))
     conn.commit()
     return redirect('post/' + post_page)
 
 @app.route('/like/<post_id>', methods=['GET', 'POST'])
 def like(post_id):
     error = None
-    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
-    cur.execute(SQL)
+    SQL = "SELECT * from \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+    cur.execute(SQL, (str(session['user_id']), post_id))
     ret = cur.fetchone()
 
     if ret == None:
-        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)" % (str(session['user_id']), post_id)
-        cur.execute(SQL)
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;" % post_id
-        cur.execute(SQL)
+        SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES(%s, %s)"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes + 1 WHERE post_id = %s;"
+        cur.execute(SQL, (post_id,))
     else:
-        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;" % (str(session['user_id']), post_id)
-        cur.execute(SQL)
-        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;" % post_id
-        cur.execute(SQL)
+        SQL = "DELETE FROM \"LIKES\" WHERE user_id = %s AND post_id = %s;"
+        cur.execute(SQL, (str(session['user_id']), post_id))
+        SQL = "UPDATE \"POSTS\" SET nb_of_likes = nb_of_likes - 1 WHERE post_id = %s;"
+        cur.execute(SQL, (post_id,))
     conn.commit()
     return redirect('feed')
 
@@ -183,7 +199,7 @@ def logout():
 def account():
     entries = None
     SQL = "SELECT * FROM \"USER\" WHERE user_id = %s;"
-    cur.execute(SQL, (str(session['user_id'])))
+    cur.execute(SQL, (str(session['user_id']),))
     entries = cur.fetchone()
     if request.method == 'POST':
         SQL = "UPDATE \"USER\" SET lastname = %s, firstname = %s, nickname = %s, mail = %s WHERE user_id = %s;"

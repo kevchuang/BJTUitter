@@ -23,6 +23,11 @@
   left: 0;
 }
 
+#form-search {
+  position: absolute;
+  left: 40%;
+}
+
 .top-div #logoutLink {
   position: absolute;
   right: 2%;
