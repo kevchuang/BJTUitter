@@ -1,0 +1,38 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="main-div">
+    <div class="top-div">
+        <a href="/feed"><img src="{{  url_for('static', filename='logo_little.png') }}" id="logo"></a>
+        <div class="account-links">
+            <div class="account-links">
+                <a href="/account" id="accountLink">Account</a>
+                <a href="/logout" id="logoutLink">Log out</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mid-div">
+        <div class="post">
+            <img class="post-useravatar" src="{{ url_for('static', filename='avatar.png') }}">
+            <span class="post-username">Nickname</span>
+            <span class="post-content" id="post-content">{{ entry[1] }}</span>
+            <span class="post-date">{{ entry[2] }}</span>
+        </div>
+
+        <div id="editBox">
+            <div class="editBox">
+                <form>
+                    <input type="text" name="editText" placeholder="Edit">
+                    <input type="submit" id="editButton" name="editButton" value="Ok!">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
