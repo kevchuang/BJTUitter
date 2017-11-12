@@ -25,22 +25,25 @@
             <span class="post-content" id="post-content">{{ entry[1] }}</span>
             <span class="post-date">{{ entry[2] }}</span>
             <div class="edit-delete-links">
-                <span class="post-edit"><a href="javascript:editBoxPopup('{{ entry[0] }}')">Edit</a></span>
                 <span class="post-delete"><a href="javascript:deleteBoxPopup()">Delete</a></span>
             </div>
             <a class="post-like" href="/like_post/{{ entry[0] }}/{{ entry[0] }}">Like <span>{{ entry[3] }}</span></a>
         </div>
 
-        <div id="editBox">
-            <div class="editBox">
-                <form>
-                    <input type="text" name="editText" placeholder="Edit">
-                    <input type="submit" id="editButton" name="editButton" value="Ok!">
-                </form>
-            </div>
+
+        <div class="editPost">
+            <form>
+                <input type="text" name="editPostText" placeholder="Edit">
+                <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">
+            </form>
         </div>
 
+
         <div class="comment-section">
+            <form action="{{ url_for('add_comment', post_id=entry[0]) }}" method="post">
+                <input type="text" name="comment" id="comment" placeholder="Comment!">
+                <input type="submit" name="submitButton" id="submitButton" value="OK!">
+            </form>
             <div class="userComments">
             {% for comment in comments %}
                 <div class="comment">
@@ -54,13 +57,15 @@
                     </div>
                     <a class="post-like" href="/like_post/{{ entry[0] }}/{{ comment[0] }}">Like <span>{{ comment[3] }}</span></a>
                 </div>
+                <div class="editPost">
+                    <form>
+                        <input type="text" name="editPostText" placeholder="Edit">
+                        <input type="submit" class="editPostButton" name="editPostButton" value="Ok!">
+                    </form>
+                </div>
+
             {%  endfor %}
             </div>
-        <form action="{{ url_for('add_comment', post_id=entry[0]) }}" method="post">
-            <input type="text" name="comment" id="comment" placeholder="Comment!">
-            <input type="submit" name="submitButton" id="submitButton" value="OK!">
-        </form>
-
 
         {%  endfor %}
 
