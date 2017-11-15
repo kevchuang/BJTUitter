@@ -1,6 +1,9 @@
 <head>
 </head>
 <body>
-    { % for friend in friends % }
-      <span>friend[2]</span>
+    <div>
+        {%  for friend in friends %}
+          <div> {{ friend[2] }} </div>
+        {% endfor %}
+    </div>
 </body>

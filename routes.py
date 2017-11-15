@@ -13,12 +13,12 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.104 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
 
 @app.route('/list_following/<user_id>', methods=['GET', 'POST'])
 def list_following(user_id):
-    friends = None
+    friends = []
     SQL = "SELECT * FROM \"FRIENDS\" WHERE user_id = %s"
     cur.execute(SQL, (user_id,))
     following = cur.fetchall()
