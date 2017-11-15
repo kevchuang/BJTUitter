@@ -66,7 +66,10 @@ def profile(user_id):
     SQL = "SELECT * from \"USER\" WHERE user_id = %s"
     cur.execute(SQL, (user_id,))
     user = cur.fetchone()
-    return render_template('profile.html', user=user)
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
+    cur.execute(SQL, (user_id,))
+    posts = cur.fetchall()
+    return render_template('profile.html', user=user, posts=posts)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -100,10 +103,16 @@ def feed():
     error = None
     entries = None
 
-    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL" % str(session['user_id'])
-    cur.execute(SQL)
+    SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL"
+    cur.execute(SQL, (str(session['user_id']),))
     entries = cur.fetchall()
-
+    SQL = "SELECT * FROM \"FRIENDS\" WHERE user_id = %s"
+    cur.execute(SQL, (str(session['user_id']),))
+    friends = cur.fetchall()
+    for friend in friends:
+        SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
+        cur.execute(SQL, (friend[1],))
+        entries.extend(cur.fetchall())
     return render_template('feed.html', entries=entries)
 
 
