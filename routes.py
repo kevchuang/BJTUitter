@@ -13,8 +13,40 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.104 port=5434")
 cur = conn.cursor()
+
+@app.route('/list_following/<user_id>', methods=['GET', 'POST'])
+def list_following(user_id):
+    friends = None
+    SQL = "SELECT * FROM \"FRIENDS\" WHERE user_id = %s"
+    cur.execute(SQL, (user_id,))
+    following = cur.fetchall()
+    for follow in following:
+        SQL = "SELECT * FROM \"USER\" WHERE user_id = %s"
+        cur.execute(SQL, (follow[1],))
+        friends.append(cur.fetchone())
+
+    return render_template("list_following.html", friends=friends)
+
+@app.route('/follow/<id_followed>', methods=['GET', 'POST'])
+def follow(id_followed):
+    SQL = "SELECT * FROM \"FRIENDS\" WHERE user_id = %s AND id_followed = %s;"
+    cur.execute(SQL, (str(session['user_id']), id_followed))
+    ret = cur.fetchone()
+
+    if ret == None:
+        SQL = "INSERT INTO \"FRIENDS\" (user_id, id_followed) VALUES (%s, %s)"
+        cur.execute(SQL, (str(session['user_id']), id_followed))
+        SQL = "UPDATE \"USER\" SET nb_follow = nb_follow + 1 WHERE user_id = %s;"
+        cur.execute(SQL, (str(session['user_id']),))
+    else:
+        SQL = "DELETE FROM \"FRIENDS\" WHERE user_id = %s AND id_followed = %s"
+        cur.execute(SQL, (str(session['user_id']), id_followed))
+        SQL = "UPDATE \"USER\" SET nb_follow = nb_follow - 1 WHERE user_id = %s;"
+        cur.execute(SQL, (str(session['user_id']),))
+    conn.commit()
+    return redirect('profile/' + id_followed)
 
 @app.route('/profile/<user_id>', methods=['GET', 'POST'])
 def profile(user_id):
