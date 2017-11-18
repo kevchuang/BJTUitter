@@ -8,7 +8,7 @@
 <div class="top-div">
     <div class="topdiv-links">
         <a href="/feed" id="feedLink">Feed</a>
-        <a href="/profile" id="profileLink">Profile</a>
+        <a href="/profile/{{ user_id }}" id="profileLink">Profile</a>
         <a href="/account" id="accountLink">Account</a>
         <a href="/logout" id="logoutLink">Logout</a>
     </div>
@@ -28,8 +28,18 @@
         <div class="mid-userprofile">
             <a href="/list_following/{{ user[8] }}">Following({{ user[9] }})</a><br/>
             <a href="/list_followers/{{ user[8] }}">Followers</a><br/>
-            <a href="/follow/{{ user[8] }}">follow</a>
+            <a href="/follow/{{ user[8] }}">{{ follow }}</a>
         </div>
+        {% for post in posts %}
+        <div class="post">
+            <img class="post-useravatar" src="{{ url_for('static', filename='avatar.png') }}">
+            <span class="post-username">Nickname</span>
+            <span class="post-content">{{ post[1] }}</span>
+            <span class="post-date">{{ post[2] }}</span>
+            <a class="post-like" href="/like/{{ post[0] }}">Like <span>{{ post[3] }}</span></a>
+            <a class="post-comment" href="/post/{{ post[0] }}">Comment <span>X</span></a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 

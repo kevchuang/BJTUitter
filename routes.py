@@ -13,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
 cur = conn.cursor()
 
 @app.route('/list_followers/<user_id>', methods=['GET', 'POST'])
@@ -63,20 +63,33 @@ def follow(id_followed):
 
 @app.route('/profile/<user_id>', methods=['GET', 'POST'])
 def profile(user_id):
+    follow = None
+
     SQL = "SELECT * from \"USER\" WHERE user_id = %s"
     cur.execute(SQL, (user_id,))
     user = cur.fetchone()
     SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
     cur.execute(SQL, (user_id,))
     posts = cur.fetchall()
-    return render_template('profile.html', user=user, posts=posts)
+    SQL = "SELECT * FROM \"FRIENDS\" WHERE user_id = %s AND id_followed = %s"
+    cur.execute(SQL, (str(session['user_id']), user_id))
+    ret = cur.fetchone()
+    if ret == None:
+        follow = "Follow"
+    else:
+        follow = "Unfollow"
+
+    if str(session['user_id']) == user_id:
+        follow = ""
+
+    return render_template('profile.html', user=user, posts=posts, follow=follow, user_id=session['user_id'])
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     SQL = "SELECT * from \"USER\" WHERE login_username = %s OR mail = %s"
     cur.execute(SQL, (request.form['search-content'].lower().strip(), request.form['search-content'].lower().strip()))
     ret = cur.fetchone()
-    if (ret != None):
+    if ret != None:
         return redirect('profile/' + str(ret[8]))
     return redirect('feed')
 
@@ -102,6 +115,7 @@ def login():
 def feed():
     error = None
     entries = None
+    user_id = str(session['user_id'])
 
     SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s AND ans_to_post IS NULL"
     cur.execute(SQL, (str(session['user_id']),))
@@ -113,7 +127,7 @@ def feed():
         SQL = "SELECT * FROM \"POSTS\" WHERE user_id = %s"
         cur.execute(SQL, (friend[1],))
         entries.extend(cur.fetchall())
-    return render_template('feed.html', entries=entries)
+    return render_template('feed.html', entries=entries, user_id = user_id)
 
 
 @app.route('/post/<post_id>', methods=['GET', 'POST'])
