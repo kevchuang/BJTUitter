@@ -37,7 +37,7 @@
 
 .userprofile {
     position: absolute;
-    width: 50%;
+    width: 40%;
     height: 80%;
     left: 10%;
     top: 5%;
@@ -102,4 +102,73 @@
 .mid-userprofile a:hover {
     text-decoration: underline;
     color: #66c0b7;
+}
+
+.right-div {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    top: 4%;
+    height: 96%;
+    overflow: auto;
+}
+
+.post {
+    position: relative;
+    display: inline-block;
+    width: 80%;
+    box-shadow: 0 5px 6px black;
+    border: inset 2px black;
+    margin-left: 10%;
+    margin-top: 5px;
+    min-height: 100px;
+    background-color: white;
+}
+
+.separator {
+    position: relative;
+    display: inline-block;
+    margin-left: 25%;
+    background-color: white;
+    width: 50%;
+    height: 2px;
+}
+
+.post-useravatar {
+    position: absolute;
+    width: 10%;
+    height: auto;
+    top: 1%;
+    left: 1%;
+}
+
+.post-username {
+    position: absolute;
+    top: 0;
+    margin-top: 5px;
+    left: 12%;
+}
+
+.post-content {
+    position: absolute;
+    left: 15%;
+    top: 33%;
+    font-weight: bold;
+}
+
+.post-date {
+    position: absolute;
+    bottom: 0;
+}
+
+.post-like {
+    position: absolute;
+    bottom: 0;
+    right: 20%;
+}
+
+.post-comment {
+    position: absolute;
+    bottom: 0;
+    right: 5%;
 }
