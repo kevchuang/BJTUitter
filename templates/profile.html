@@ -1,12 +1,13 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="../static/profile.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
 
 <div class="top-div">
     <div class="topdiv-links">
+        <a href="/feed" id="feedLink">Feed</a>
         <a href="/profile" id="profileLink">Profile</a>
         <a href="/account" id="accountLink">Account</a>
         <a href="/logout" id="logoutLink">Logout</a>

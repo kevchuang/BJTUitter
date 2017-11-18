@@ -1,0 +1,56 @@
+/* CSS page for list_following page */
+
+.main-div {
+    position: absolute;
+    width: 80%;
+    height: 92%;
+    margin: 0;
+    left: 10%;
+    background-color: #32ab9f;
+    box-shadow: 0 0 40px black;
+}
+
+.top-div {
+    position: static;
+    top: 0;
+    width: 100%;
+    height: 4%;
+    left: 0;
+}
+
+.topdiv-links {
+    text-align: end;
+}
+
+.topdiv-links a {
+    text-decoration: none;
+    font-size: 200%;
+    color: white;
+    transition: .3s ease;
+    margin-right: 1%;
+}
+
+.topdiv-links a:hover {
+    font-size: 250%;
+    color: deepskyblue;
+}
+
+.followingusers {
+    position: absolute;
+    top: 4%;
+    width: 80%;
+    height: 96%;
+    left: 10%;
+    overflow: auto;
+}
+
+.friend {
+    display: inline-block;
+    background: white;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    width: 98%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}

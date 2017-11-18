@@ -1,9 +1,23 @@
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='list_following.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div>
+
+<div class="top-div">
+    <div class="topdiv-links">
+        <a href="/feed" id="feedLink">Feed</a>
+        <a href="/profile" id="profileLink">Profile</a>
+        <a href="/account" id="accountLink">Account</a>
+        <a href="/logout" id="logoutLink">Logout</a>
+    </div>
+</div>
+
+<div class="main-div">
+    <div class="followingusers">
         {%  for friend in friends %}
-          <div> {{ friend[2] }} </div>
+        <div class="friend"> {{ friend[2] }} </div>
         {% endfor %}
     </div>
+</div>
 </body>
