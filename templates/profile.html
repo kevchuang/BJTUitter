@@ -30,6 +30,8 @@
             <a href="/list_followers/{{ user[8] }}">Followers</a><br/>
             <a href="/follow/{{ user[8] }}">{{ follow }}</a>
         </div>
+    </div>
+    <div class="right-div">
         {% for post in posts %}
         <div class="post">
             <img class="post-useravatar" src="{{ url_for('static', filename='avatar.png') }}">
