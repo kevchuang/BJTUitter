@@ -13,7 +13,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=192.168.1.106 port=5434")
+conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
 cur = conn.cursor()
 
 @app.route('/list_followers/<user_id>', methods=['GET', 'POST'])
