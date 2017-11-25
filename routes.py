@@ -1,7 +1,12 @@
 import os
 import psycopg2
 import time
+import static
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+
+dbName='BJTUTwitter'
+dbHost='localhost'
+dbPort='5434'
 
 app = Flask(__name__)
 
@@ -13,12 +18,8 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = None
-cur = None
-
-def init_var(dbName, dbHost, dbPort):
-    conn = psycopg2.connect("dbname="+dbName+" user=postgres password=postgre host="+dbHost+" port="+dbPort)
-    cur = conn.cursor()
+conn = psycopg2.connect("dbname="+dbName+" user=postgres password=postgre host="+dbHost+" port="+dbPort)
+cur = conn.cursor()
 
 @app.route('/list_followers/<user_id>', methods=['GET', 'POST'])
 def list_followers(user_id):
@@ -113,7 +114,7 @@ def login():
             flash('Successfully login')
             return redirect('feed')
 
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error), 403
 
 @app.route('/feed', methods=['GET'])
 def feed():
@@ -281,5 +282,4 @@ def main():
     conn.close()
 
 if __name__ == '__main__':
-    init_var('BJTUTwitter', 'localhost', '5434')
     main()
