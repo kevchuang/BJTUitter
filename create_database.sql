@@ -1,4 +1,4 @@
-CREATE DATABASE "BJTUTwitter"
+CREATE DATABASE "BJTUTwitter_unittest"
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default

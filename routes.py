@@ -13,8 +13,12 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTTINGS', silent=True)
 
-conn = psycopg2.connect("dbname=BJTUTwitter user=postgres password=postgre host=localhost port=5434")
-cur = conn.cursor()
+conn = None
+cur = None
+
+def init_var(dbName, dbHost, dbPort):
+    conn = psycopg2.connect("dbname="+dbName+" user=postgres password=postgre host="+dbHost+" port="+dbPort)
+    cur = conn.cursor()
 
 @app.route('/list_followers/<user_id>', methods=['GET', 'POST'])
 def list_followers(user_id):
@@ -144,12 +148,6 @@ def post(post_id):
     comments = cur.fetchall()
     return render_template('post.html', entries=entries, comments=comments)
 
-# @app.route('/like', methods=['GET', 'POST'])
-# def like():
-#
-#     SQL = "INSERT INTO \"LIKES\" (user_id, post_id) VALUES (%s, %s);"
-#     return redirect(like)
-
 @app.route('/delete/<post_id>', methods=['GET', 'POST'])
 def delete(post_id):
     error = None
@@ -277,13 +275,11 @@ def account():
         conn.commit()
     return render_template('account.html', entries=entries)
 
-
-@app.route('/main', methods=['GET', 'POST'])
 def main():
-    return render_template('main.html')
-
-
-if __name__ == '__main__':
     app.run()
     cur.close()
     conn.close()
+
+if __name__ == '__main__':
+    init_var('BJTUTwitter', 'localhost', '5434')
+    main()
